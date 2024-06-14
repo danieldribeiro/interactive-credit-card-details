@@ -2,7 +2,7 @@ import { Container } from "./styles"
 
 import InputMask from 'react-input-mask'
 
-export default function Form({ setName, setNumber, setExpiry, setCvc, verifyCompanie }){
+export default function Form({ setName, setNumber, setExpiry, setCvc, verifyCompanie, companie }){
 
   const handleName = e => setName(e.target.value) 
   const handleNumber = e => {
@@ -28,10 +28,10 @@ export default function Form({ setName, setNumber, setExpiry, setCvc, verifyComp
       <label htmlFor="number">
         NÚMERO DO CARTÃO 
         <InputMask 
-          mask="9999 9999 9999 9999"
+          mask={companie == 'Amex' ? '9999 999999 99999' : "9999 9999 9999 9999"}
           maskChar={null} 
           alwaysShowMask={false} 
-          placeholder='0000 0000 0000 0000' 
+          placeholder='0000 0000 0000 0000'
           id="number"
           onChange={handleNumber}
         />

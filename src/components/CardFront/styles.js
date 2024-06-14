@@ -5,7 +5,6 @@ export const Container = styled.div`
   width: 450px;
   height: 245px;
   border-radius: 12px;
-  background-color: red;
   position: absolute;
   top: 20%;
   left: 10%;

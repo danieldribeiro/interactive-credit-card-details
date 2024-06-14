@@ -9,11 +9,6 @@ export const Container = styled.div`
   background-size: cover;
   position: relative;
 
-  @media screen and (min-width: 320px) {
-      background-image: none;
-      background-color: red;
-  }
-
   @media screen and (max-width: 430px) {
       width: 100vw;
       height: 30vh;

@@ -50,6 +50,7 @@ export default function App() {
         setExpiry={setExpiry}
         setCvc={setCvc}
         verifyCompanie={verifyCompanie}
+        companie={companie}
       />
     </Container>
   )
