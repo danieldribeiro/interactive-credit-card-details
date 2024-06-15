@@ -17,10 +17,28 @@ export const Container = styled.div`
   gap: 20px;
   color: ${({theme}) => theme.COLORS.WHITE};
 
-  @media screen and (max-width: 430px) {
+  @media screen and (max-device-width: 430px) {
     transform: scale(.75);
-    top: 21%;
-    left: 0%;
+    left: -7%;
+  }
+
+  @media screen and (min-device-width: 431px) and (max-device-width: 915px) {
+    top: calc(200px + 90px);
+    left: 25%;
+  }
+
+  @media screen and (min-device-width: 1024px) and (max-device-width: 1440px) {
+    width: 400px;
+    height: 220px;
+    font-size: 15px;
+    left: 5%;
+    top: 47%;
+  }
+
+  @media screen and (min-device-width: 1920px) {
+    width: 500px;
+    height: 295px;
+    top: 46%;
   }
 
   .stripe{
@@ -37,6 +55,11 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 50px;
+
+    @media screen and (min-device-width: 1920px) {
+      gap: 15px;
+    }
 
     > span {
       width: 100%;

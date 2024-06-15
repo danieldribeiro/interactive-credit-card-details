@@ -5,7 +5,11 @@ export const Container = styled.div`
   height: 100vh;
   display: flex;
 
-  @media screen and (max-width: 430px) {
+  @media screen and (max-device-width: 430px) {
+    flex-direction: column;
+  }
+
+  @media screen and (min-device-width: 431px) and (max-device-width: 915px) {
     flex-direction: column;
   }
 `

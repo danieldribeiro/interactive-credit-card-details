@@ -30,7 +30,45 @@ export default function App() {
         setCompanie('Mastercard')
         break
     }
+
+    return firstDigit
   }
+
+  const [nameError, setNameError] = useState(false);
+  const [numberError, setNumberError] = useState(false);
+  const [expiryError, setExpiryError] = useState(false);
+  const [cvcError, setCvcError] = useState(false);
+
+  const [error, setError] = useState(false)
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if(name === 'DANIEL D RIBEIRO'){
+      setNameError(true)
+    }
+
+    if(number == '0000 0000 0000 0000'){
+      setNumberError(true)
+    } 
+
+    if(companie == 'Amex' && number.length < 15) {
+      setNumberError(true)
+      console.log('cheguei')
+      return
+    } 
+
+    if(companie != 'Amex' && number.length < 16) setNumberError(true)
+
+
+    console.log(nameError, numberError, expiryError, cvcError)
+  
+    if (nameError || numberError || expiryError || cvcError) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
 
   return (
     <Container>
@@ -51,6 +89,12 @@ export default function App() {
         setCvc={setCvc}
         verifyCompanie={verifyCompanie}
         companie={companie}
+        handleSubmit={handleSubmit}
+        nameError={nameError}
+        numberError={numberError}
+        expiryError={expiryError}
+        cvcError={cvcError}
+        error={error}
       />
     </Container>
   )

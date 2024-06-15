@@ -13,4 +13,17 @@ export const Container = styled.div`
       width: 100vw;
       height: 30vh;
   }
+
+  @media screen and (min-width: 431px) and (max-width: 915px) {
+    width: 100vw;
+    height: 30vh;
+  }
+
+  @media screen and (min-device-width: 1024px) and (max-device-width: 1440px) {
+    width: 45vw;
+  }
+
+  @media screen and (min-device-width: 1920px) {
+    width: 45vw;
+  }
 `

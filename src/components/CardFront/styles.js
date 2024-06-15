@@ -18,8 +18,25 @@ export const Container = styled.div`
 
   @media screen and (max-width: 430px) {
     transform: scale(.75);
-    top: -2%;
-    left: -8%;
+    top: 3%;
+    left: -10%;
+  }
+
+  @media screen and (min-width: 431px) and (max-width: 915px) {
+    top: 5%;
+  }
+
+  @media screen and (min-device-width: 1024px) and (max-device-width: 1440px) {
+    width: 400px;
+    height: 220px;
+    font-size: 15px;
+    left: 2%;
+  }
+
+  @media screen and (min-device-width: 1920px) {
+    width: 500px;
+    height: 295px;
+    font-size: 20px;
   }
 
   .companie{
@@ -39,6 +56,10 @@ export const Container = styled.div`
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 3px;
+
+    @media screen and (min-device-width: 1920px) {
+      font-size: 30px;
+    }
   }
 
   .name{

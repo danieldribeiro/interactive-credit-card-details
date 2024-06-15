@@ -8,8 +8,13 @@ export const Container = styled.form`
   justify-content: center;
 
   @media screen and (max-width: 430px) {
-    width: 95vw;
-    margin-top: 200px;
+    width: 100vw;
+    margin-top: 250px;
+  }
+
+  @media screen and (min-width: 431px) and (max-width: 915px) {
+    width: 100vw;
+    margin-top: 280px;
   }
 
   label {
@@ -34,6 +39,11 @@ export const Container = styled.form`
       border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
       padding: 10px 16px;
       font-size: 18px;
+      transition: all .2s;
+
+      &:focus{
+        border: 1px solid ${({ theme }) => theme.COLORS.VIOLET_900}
+      }
 
       @media screen and (max-width: 430px) {
         width: 300px;
@@ -42,6 +52,10 @@ export const Container = styled.form`
       &::placeholder {
         color: ${({theme}) => theme.COLORS.GRAY_200};
         font-size: 16px;
+      }
+
+      .error{
+        border: 1px solid ${({ theme }) => theme.COLORS.RED};
       }
     }
 
@@ -67,5 +81,9 @@ export const Container = styled.form`
     input{
       width: 100%;
     }
+  }
+
+  .error{
+    display: block;
   }
 `
