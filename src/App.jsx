@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Container } from "./styles/app"
 
@@ -9,12 +9,17 @@ import Form from "./components/Form"
 
 export default function App() {
 
-  const [ name, setName ] = useState('DANIEL D RIBEIRO')
-  const [ number, setNumber ] = useState('0000 0000 0000 0000')
-  const [ expiry, setExpiry ] = useState('00/00')
-  const [ cvc, setCvc ] = useState('000')
+  const [ name, setName ] = useState('')
+  const [ number, setNumber ] = useState('')
+  const [ expiry, setExpiry ] = useState('')
+  const [ cvc, setCvc ] = useState('')
 
   const [ companie, setCompanie ] = useState('')
+
+  const [nameError, setNameError] = useState(false);
+  const [numberError, setNumberError] = useState(false);
+  const [expiryError, setExpiryError] = useState(false);
+  const [cvcError, setCvcError] = useState(false);
 
   const verifyCompanie = (number) => {
     const firstDigit = Number(number.substring(0, 1))
@@ -34,41 +39,50 @@ export default function App() {
     return firstDigit
   }
 
-  const [nameError, setNameError] = useState(false);
-  const [numberError, setNumberError] = useState(false);
-  const [expiryError, setExpiryError] = useState(false);
-  const [cvcError, setCvcError] = useState(false);
-
   const [error, setError] = useState(false)
+
+  const verifyErrors = () => {
+    if(name === ''){
+      setNameError(true)
+    }
+
+    const numberTrimmed = number.replace(/\s+/g, '')
+
+    if(number === '' || companie === 'Amex' && numberTrimmed.length < 15 || companie != 'Amex'&& numberTrimmed.length < 16){
+      setNumberError(true)
+    }
+
+    const month = Number(expiry.substring(0, 2))
+    const year = Number(expiry.substring(3,5))
+    const actualYear = Number(String(new Date().getFullYear()).substring(2,4))
+    
+    if(expiry == '' || expiry.length < 5 || month < 1 || month > 12 || actualYear > year){
+      setExpiryError(true)
+    }
+
+    if(cvc === '' || companie === 'Amex' && cvc.length < 4 || companie != 'Amex' && cvc.length < 3){
+      setCvcError(true)
+    }
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    if(name === 'DANIEL D RIBEIRO'){
-      setNameError(true)
-    }
+    setNameError(false)
+    setNumberError(false)
+    setExpiryError(false)
+    setCvcError(false)
 
-    if(number == '0000 0000 0000 0000'){
-      setNumberError(true)
-    } 
+    verifyErrors()
+  };
 
-    if(companie == 'Amex' && number.length < 15) {
-      setNumberError(true)
-      console.log('cheguei')
-      return
-    } 
-
-    if(companie != 'Amex' && number.length < 16) setNumberError(true)
-
-
-    console.log(nameError, numberError, expiryError, cvcError)
-  
+  useEffect(() => {
     if (nameError || numberError || expiryError || cvcError) {
       setError(true);
     } else {
-      setError(false);
+      setError(false)
     }
-  };
+  }, [nameError, numberError, expiryError, cvcError]);
 
   return (
     <Container>
@@ -91,9 +105,13 @@ export default function App() {
         companie={companie}
         handleSubmit={handleSubmit}
         nameError={nameError}
+        setNameError={setNameError}
         numberError={numberError}
+        setNumberError={setNumberError}
         expiryError={expiryError}
+        setExpiryError={setExpiryError}
         cvcError={cvcError}
+        setCvcError={setCvcError}
         error={error}
       />
     </Container>

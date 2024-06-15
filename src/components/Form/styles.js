@@ -54,11 +54,12 @@ export const Container = styled.form`
         font-size: 16px;
       }
 
-      .error{
-        border: 1px solid ${({ theme }) => theme.COLORS.RED};
-      }
     }
-
+    
+    .error{
+      border: 1px solid ${({ theme }) => theme.COLORS.RED};
+    }
+    
     input[type=number]::-webkit-inner-spin-button { 
     -webkit-appearance: none;
     }
