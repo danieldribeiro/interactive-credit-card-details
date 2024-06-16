@@ -20,6 +20,7 @@ export const Container = styled.div`
   @media screen and (max-device-width: 430px) {
     transform: scale(.75);
     left: -7%;
+    top: 200px;
   }
 
   @media screen and (min-device-width: 431px) and (max-device-width: 915px) {

@@ -6,6 +6,7 @@ import BgSideBar from "./components/BgSideBar"
 import CardFront from "./components/CardFront"
 import CardBack from "./components/CardBack"
 import Form from "./components/Form"
+import SubmitMessage from "./components/SubmitMessage"
 
 export default function App() {
 
@@ -20,6 +21,8 @@ export default function App() {
   const [numberError, setNumberError] = useState(false);
   const [expiryError, setExpiryError] = useState(false);
   const [cvcError, setCvcError] = useState(false);
+
+  const [validated, setValidated] = useState(false)
 
   const verifyCompanie = (number) => {
     const firstDigit = Number(number.substring(0, 1))
@@ -42,14 +45,18 @@ export default function App() {
   const [error, setError] = useState(false)
 
   const verifyErrors = () => {
+    let hasError = false
+
     if(name === ''){
       setNameError(true)
+      hasError = true
     }
 
     const numberTrimmed = number.replace(/\s+/g, '')
 
     if(number === '' || companie === 'Amex' && numberTrimmed.length < 15 || companie != 'Amex'&& numberTrimmed.length < 16){
       setNumberError(true)
+      hasError = true
     }
 
     const month = Number(expiry.substring(0, 2))
@@ -58,11 +65,15 @@ export default function App() {
     
     if(expiry == '' || expiry.length < 5 || month < 1 || month > 12 || actualYear > year){
       setExpiryError(true)
+      hasError = true
     }
 
     if(cvc === '' || companie === 'Amex' && cvc.length < 4 || companie != 'Amex' && cvc.length < 3){
       setCvcError(true)
+      hasError = true
     }
+
+    return hasError
   }
 
   const handleSubmit = e => {
@@ -74,6 +85,13 @@ export default function App() {
     setCvcError(false)
 
     verifyErrors()
+    
+    const hasError = verifyErrors();
+    setError(hasError);
+
+    if (!hasError) {
+      setValidated(true);
+    }
   };
 
   useEffect(() => {
@@ -96,24 +114,28 @@ export default function App() {
       <CardBack 
         cvc={cvc}
       />
-      <Form
-        setName={setName}
-        setNumber={setNumber}
-        setExpiry={setExpiry}
-        setCvc={setCvc}
-        verifyCompanie={verifyCompanie}
-        companie={companie}
-        handleSubmit={handleSubmit}
-        nameError={nameError}
-        setNameError={setNameError}
-        numberError={numberError}
-        setNumberError={setNumberError}
-        expiryError={expiryError}
-        setExpiryError={setExpiryError}
-        cvcError={cvcError}
-        setCvcError={setCvcError}
-        error={error}
-      />
+      { validated ? 
+        (<SubmitMessage/>) : 
+        
+        (<Form
+          setName={setName}
+          setNumber={setNumber}
+          setExpiry={setExpiry}
+          setCvc={setCvc}
+          verifyCompanie={verifyCompanie}
+          companie={companie}
+          handleSubmit={handleSubmit}
+          nameError={nameError}
+          setNameError={setNameError}
+          numberError={numberError}
+          setNumberError={setNumberError}
+          expiryError={expiryError}
+          setExpiryError={setExpiryError}
+          cvcError={cvcError}
+          setCvcError={setCvcError}
+          error={error}
+        />)
+      }
     </Container>
   )
 }
